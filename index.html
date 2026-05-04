@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鹤山市第一中学 — 南山毓秀，百年学府</title>
+<style>
+/* ========== Reset & Base ========== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#1a5c2e;
+  --primary-light:#2d8a4e;
+  --accent:#c8a951;
+  --accent-light:#f0d878;
+  --bg:#fafaf5;
+  --text:#1a1a1a;
+  --text-light:#555;
+  --white:#fff;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --radius:16px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ========== Animated Background ========== */
+.bg-particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.bg-particles span{position:absolute;display:block;border-radius:50%;background:rgba(26,92,46,.06);animation:floatParticle 20s infinite}
+@keyframes floatParticle{
+  0%,100%{transform:translateY(0) rotate(0deg);opacity:.3}
+  50%{transform:translateY(-80px) rotate(180deg);opacity:.8}
+}
+
+/* ========== Header / Nav ========== */
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;transition:all .4s ease}
+header.scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1200px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.2rem;color:var(--white);transition:color .4s}
+header.scrolled .logo{color:var(--primary)}
+.logo-icon{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.9);font-weight:500;font-size:.95rem;position:relative;padding:4px 0;transition:color .3s}
+header.scrolled .nav-links a{color:var(--text)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--accent-light)}
+header.scrolled .nav-links a:hover{color:var(--primary)}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.menu-toggle span{width:24px;height:2px;background:var(--white);transition:all .3s}
+header.scrolled .menu-toggle span{background:var(--primary)}
+
+/* ========== Hero ========== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg svg{width:100%;height:100%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,92,46,.85) 0%,rgba(20,60,30,.7) 50%,rgba(26,92,46,.6) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--white);padding:24px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:8px 20px;font-size:.85rem;margin-bottom:24px;animation:fadeSlideUp .8s ease both}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.2;margin-bottom:16px;animation:fadeSlideUp .8s ease .2s both}
+.hero h1 .highlight{color:var(--accent-light);position:relative}
+.hero h1 .highlight::after{content:'';position:absolute;bottom:4px;left:0;width:100%;height:6px;background:var(--accent);opacity:.4;border-radius:4px}
+.hero p{font-size:clamp(1rem,2vw,1.3rem);opacity:.9;max-width:600px;margin:0 auto 32px;animation:fadeSlideUp .8s ease .4s both}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;animation:fadeSlideUp .8s ease .6s both}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--accent-light);display:block}
+.hero-stat .label{font-size:.85rem;opacity:.8}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-12px)}}
+.hero-scroll svg{width:24px;height:24px;color:rgba(255,255,255,.7)}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ========== Sections ========== */
+section{padding:100px 0;position:relative;z-index:1}
+.section-header{text-align:center;margin-bottom:64px}
+.section-tag{display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--white);padding:6px 18px;border-radius:100px;font-size:.8rem;font-weight:600;letter-spacing:1px;margin-bottom:16px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--text);margin-bottom:12px}
+.section-title .accent{color:var(--primary)}
+.section-desc{color:var(--text-light);max-width:600px;margin:0 auto;font-size:1.05rem}
+
+/* ========== About ========== */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.about-img{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow)}
+.about-img .scene{width:100%;height:100%}
+.about-text h3{font-size:1.6rem;font-weight:700;margin-bottom:16px;color:var(--primary)}
+.about-text p{margin-bottom:16px;color:var(--text-light)}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.about-feature{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--white);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s}
+.about-feature:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.about-feature .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.about-feature .icon svg{width:18px;height:18px;color:var(--white)}
+.about-feature span{font-size:.9rem;font-weight:600}
+
+/* ========== History Timeline ========== */
+.timeline-section{background:linear-gradient(180deg,var(--bg) 0%,#f0f5f0 100%)}
+.timeline{position:relative;max-width:800px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--primary),var(--accent));transform:translateX(-50%);border-radius:3px}
+.timeline-item{display:flex;align-items:center;gap:40px;margin-bottom:48px;opacity:0;transform:translateY(30px);transition:all .6s ease}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.timeline-item:nth-child(odd){flex-direction:row-reverse}
+.timeline-item:nth-child(odd) .tl-content{text-align:right}
+.tl-content{flex:1;background:var(--white);padding:24px;border-radius:var(--radius);box-shadow:var(--shadow);position:relative}
+.tl-content::before{content:'';position:absolute;top:50%;width:16px;height:16px;background:var(--accent);border:3px solid var(--white);border-radius:50%;transform:translateY(-50%);z-index:2}
+.timeline-item:nth-child(even) .tl-content::before{right:-48px}
+.timeline-item:nth-child(odd) .tl-content::before{left:-48px}
+.tl-year{font-size:1.5rem;font-weight:800;color:var(--primary);display:block;margin-bottom:4px}
+.tl-title{font-weight:700;margin-bottom:6px}
+.tl-desc{font-size:.9rem;color:var(--text-light)}
+.tl-spacer{flex:1}
+
+/* ========== Campus ========== */
+.campus-section{background:var(--white)}
+.campus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.campus-card{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;cursor:pointer;box-shadow:var(--shadow);transition:transform .4s,box-shadow .4s}
+.campus-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.15)}
+.campus-card .scene{width:100%;height:100%;transition:transform .6s}
+.campus-card:hover .scene{transform:scale(1.05)}
+.campus-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.campus-card:hover img{transform:scale(1.05)}
+.campus-card .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;color:var(--white)}
+.campus-card .overlay h4{font-size:1.2rem;font-weight:700;margin-bottom:4px}
+.campus-card .overlay p{font-size:.85rem;opacity:.85}
+
+/* ========== Stats ========== */
+.stats-section{background:linear-gradient(135deg,var(--primary) 0%,#0e3d1f 100%);color:var(--white);position:relative;overflow:hidden}
+.stats-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;position:relative;z-index:1}
+.stat-item{text-align:center;padding:32px 16px}
+.stat-num{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;color:var(--accent-light);display:block;margin-bottom:8px}
+.stat-label{font-size:.95rem;opacity:.85}
+.stat-bar{width:40px;height:3px;background:var(--accent);margin:16px auto 0;border-radius:3px}
+
+/* ========== Honors ========== */
+.honors-section{background:linear-gradient(180deg,#f0f5f0 0%,var(--bg) 100%)}
+.honors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.honor-card{background:var(--white);padding:24px;border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,.04);border-left:4px solid var(--accent);transition:transform .3s,box-shadow .3s;opacity:0;transform:translateX(-20px)}
+.honor-card.visible{opacity:1;transform:translateX(0)}
+.honor-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.honor-card .year{font-size:.8rem;color:var(--primary);font-weight:700;margin-bottom:6px}
+.honor-card h4{font-size:1rem;font-weight:700;margin-bottom:6px}
+.honor-card p{font-size:.85rem;color:var(--text-light)}
+
+/* ========== Teachers ========== */
+.teachers-section{background:var(--white)}
+.teacher-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.teacher-stat{background:linear-gradient(135deg,#f8faf8,#f0f5f0);padding:32px;border-radius:var(--radius);text-align:center;border:1px solid rgba(26,92,46,.08);transition:transform .3s}
+.teacher-stat:hover{transform:translateY(-4px)}
+.teacher-stat .icon-wrap{width:56px;height:56px;margin:0 auto 16px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center}
+.teacher-stat .icon-wrap svg{width:28px;height:28px;color:var(--white)}
+.teacher-stat .num{font-size:2rem;font-weight:800;color:var(--primary);display:block}
+.teacher-stat .label{font-size:.9rem;color:var(--text-light);margin-top:4px}
+
+/* ========== Motto ========== */
+.motto-section{background:linear-gradient(135deg,var(--primary) 0%,#0e3d1f 100%);color:var(--white);text-align:center;position:relative;overflow:hidden}
+.motto-section::before,.motto-section::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.03)}
+.motto-section::before{top:-100px;left:-100px}
+.motto-section::after{bottom:-100px;right:-100px}
+.motto-quote{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:24px;position:relative;z-index:1}
+.motto-quote .char{display:inline-block;opacity:0;transform:translateY(40px) rotateX(90deg);transition:all .6s ease}
+.motto-quote .char.visible{opacity:1;transform:translateY(0) rotateX(0)}
+.motto-sub{font-size:1.1rem;opacity:.8;max-width:500px;margin:0 auto;position:relative;z-index:1}
+.motto-divider{width:60px;height:3px;background:var(--accent);margin:24px auto;border-radius:3px}
+
+/* ========== Song ========== */
+.song-section{background:var(--bg)}
+.song-card{max-width:700px;margin:0 auto;background:var(--white);padding:48px;border-radius:var(--radius);box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}
+.song-card::before{content:'"';position:absolute;top:10px;left:20px;font-size:8rem;color:rgba(26,92,46,.06);font-family:Georgia,serif;line-height:1}
+.song-lyrics{font-size:1.05rem;line-height:2.2;color:var(--text-light);position:relative;z-index:1}
+.song-lyrics .highlight{color:var(--primary);font-weight:700}
+
+/* ========== Contact ========== */
+.contact-section{background:var(--white)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-item{display:flex;align-items:flex-start;gap:16px;padding:20px;background:var(--bg);border-radius:12px;transition:transform .3s}
+.contact-item:hover{transform:translateX(4px)}
+.contact-item .icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-light));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-item .icon svg{width:20px;height:20px;color:var(--white)}
+.contact-item h4{font-weight:700;margin-bottom:4px}
+.contact-item p{font-size:.9rem;color:var(--text-light)}
+.contact-map{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative;min-height:400px}
+.contact-map iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+
+/* ========== Footer ========== */
+footer{background:#0a1f10;color:rgba(255,255,255,.7);padding:60px 0 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand h3{color:var(--white);font-size:1.3rem;margin-bottom:12px}
+.footer-brand p{font-size:.9rem;line-height:1.8}
+.footer-col h4{color:var(--white);font-size:1rem;margin-bottom:16px;font-weight:700}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:.9rem;transition:color .3s}
+.footer-col a:hover{color:var(--accent-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text-align:center;font-size:.85rem}
+
+/* ========== Scroll Animations ========== */
+.fade-in{opacity:0;transform:translateY(30px);transition:all .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-left{opacity:0;transform:translateX(-40px);transition:all .7s ease}
+.fade-in-left.visible{opacity:1;transform:translateX(0)}
+.fade-in-right{opacity:0;transform:translateX(40px);transition:all .7s ease}
+.fade-in-right.visible{opacity:1;transform:translateX(0)}
+
+/* ========== Counter Animation ========== */
+.count-up{display:inline-block}
+
+/* ========== Responsive ========== */
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .campus-grid{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .teacher-stats{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);flex-direction:column;padding:20px;gap:16px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+  .nav-links.open{display:flex}
+  .nav-links a{color:var(--text)!important}
+  .menu-toggle{display:flex}
+  .timeline::before{left:20px}
+  .timeline-item,.timeline-item:nth-child(odd){flex-direction:column;text-align:left}
+  .timeline-item:nth-child(odd) .tl-content{text-align:left}
+  .tl-content::before{left:12px!important;right:auto!important}
+  .tl-spacer{display:none}
+  .hero-stats{gap:24px}
+}
+@media(max-width:600px){
+  .campus-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .about-features{grid-template-columns:1fr}
+}
+
+/* ========== Loading Screen ========== */
+.loader{position:fixed;inset:0;background:var(--primary);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .6s,visibility .6s}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader-ring{width:60px;height:60px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--accent-light);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{color:var(--white);font-size:1.1rem;font-weight:600;letter-spacing:2px}
+
+/* ========== Back to top ========== */
+.back-top{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;background:var(--primary);color:var(--white);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(26,92,46,.3);cursor:pointer;opacity:0;transform:translateY(20px);transition:all .3s;z-index:100;border:none}
+.back-top.visible{opacity:1;transform:translateY(0)}
+.back-top:hover{background:var(--primary-light);transform:translateY(-3px)}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">鹤山一中</div>
+</div>
+
+<!-- Background Particles -->
+<div class="bg-particles" id="particles"></div>
+
+<!-- Header -->
+<header id="header">
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="21" fill="#1a5c2e"/>
+          <text x="21" y="27" text-anchor="middle" fill="#c8a951" font-size="16" font-weight="800" font-family="serif">一</text>
+        </svg>
+      </div>
+      <span>鹤山市第一中学</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">学校概况</a></li>
+      <li><a href="#history">百年校史</a></li>
+      <li><a href="#campus">校园风光</a></li>
+      <li><a href="#teachers">师资力量</a></li>
+      <li><a href="#honors">荣誉成就</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg" style="position:absolute;inset:0;z-index:0">
+    <img src="https://bkimg.cdn.bcebos.com/pic/38dbb6fd5266d01609244cb94a72c30735fae6cd9f52?x-bce-process=image/resize,m_lfit,w_1920,limit_1" alt="" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      广东省国家级示范性普通高中
+    </div>
+    <h1>鹤山市第一中学</h1>
+    <p>南山毓秀，百年学府。始建于1925年，秉承"劳心劳力，达己达人"校训，培育英才无数</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num count-up" data-target="101">0</span>
+        <span class="label">办学历史（年）</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num count-up" data-target="170">0</span>
+        <span class="label">校园面积（亩）</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num count-up" data-target="230">0</span>
+        <span class="label">专任教师</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num count-up" data-target="51">0</span>
+        <span class="label">教学班级</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img fade-in-left">
+        <img src="https://bkimg.cdn.bcebos.com/pic/377adab44aed2e738bd440d0835bb68b87d6267f4c8e?x-bce-process=image/resize,m_lfit,w_800,limit_1" alt="鹤山一中新貌" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius)">
+        <img src="http://www.heshan.gov.cn/img/1/1367/1367341/3226990.png" alt="鹤山一中校园" loading="lazy" style="width:100%;margin-top:16px;border-radius:var(--radius);box-shadow:var(--shadow)">
+      </div>
+      <div class="about-text fade-in-right">
+        <div class="section-tag">学校概况</div>
+        <h3>南山毓秀，百年学府</h3>
+        <p>鹤山市第一中学坐落于沙坪街道南山之巅，创建于1925年，首任校长为鹤邑华侨李照衡先生。学校占地170多亩，是广东省国家级示范性普通高中、江门市重点中学。</p>
+        <p>学校秉持"劳心劳力，达己达人"的教育理念，历经百年建设发展，素有鹤山名胜"南山毓秀"美誉。校园林木葱茏，花繁草茂，蝉鸣鸟唱，风清气爽，是一方难觅的满盈墨彩、泛溢书香的求学福地。</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <span>国家级示范性高中</span>
+          </div>
+          <div class="about-feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span>广东省先进集体</span>
+          </div>
+          <div class="about-feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span>全国模范职工之家</span>
+          </div>
+          <div class="about-feature">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <span>全国语文教改示范校</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- History Timeline -->
+<section id="history" class="timeline-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">百年校史</div>
+      <h2 class="section-title">跨越世纪的<span class="accent">教育征程</span></h2>
+      <p class="section-desc">从1925年创办至今，鹤山一中走过了近百年的光辉历程</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-content">
+          <span class="tl-year">1925</span>
+          <div class="tl-title">鹤山中学创立</div>
+          <div class="tl-desc">鹤邑华侨李照衡先生归国创办鹤山中学，初借沙坪冯家祠为校址，秋季招收初中师范班学生48人，教职员6人。李照衡夫妇三次越洋募捐，途经欧美及东南亚500余埠，募捐毫银32万余元。</div>
+        </div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <span class="tl-year">1931</span>
+          <div class="tl-title">迁入南山新校舍</div>
+          <div class="tl-desc">一中从冯家祠迁入南山新校舍，包括坎侨堂等一批新学府落成，结束在祠堂上课的日子。坎侨堂建筑面积2000多平方米，被誉为"鹤山第一碉楼"。</div>
+        </div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <span class="tl-year">1994</span>
+          <div class="tl-title">首批广东省一级学校</div>
+          <div class="tl-desc">鹤山一中被评为首批广东省一级学校，标志着学校办学水平迈上新台阶。坎侨堂由校友和社会热心人士捐资按原貌重修落成。</div>
+        </div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <span class="tl-year">2008</span>
+          <div class="tl-title">国家级示范性高中</div>
+          <div class="tl-desc">以高分通过广东省普通高中教学水平评估暨广东省国家级示范性普通高中终期督导验收，获"教学水平优秀学校"称号。</div>
+        </div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <span class="tl-year">2023</span>
+          <div class="tl-title">省新课程新教材示范校</div>
+          <div class="tl-desc">被选为广东省新课程新教材试验示范校及校本教研基地，持续引领教育改革创新。高考成绩连续多年高居江门各市区学校榜首。</div>
+        </div>
+        <div class="tl-spacer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Campus -->
+<section id="campus" class="campus-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">校园风光</div>
+      <h2 class="section-title">南山毓秀，<span class="accent">满盈墨彩</span></h2>
+      <p class="section-desc">林木葱茏，花繁草茂，蝉鸣鸟唱，风清气爽</p>
+    </div>
+    <div class="campus-grid">
+      <!-- Card 1: Gate -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/42166d224f4a20a446234d604d0b8f22720e0cf37a58?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="鹤山一中校门" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>学校正门</h4>
+          <p>沙坪街道园外苑20号</p>
+        </div>
+      </div>
+      <!-- Card 2: Kanqiao Hall -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/dcc451da81cb39dbb6fdb6fb0d4f1e24ab18972b9a5e?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="坎侨堂" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>坎侨堂</h4>
+          <p>"鹤山第一碉楼"，始建于1930年</p>
+        </div>
+      </div>
+      <!-- Card 3: Teaching Building -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/3801213fb80e7bec54e7bf4bf277ae389b504fc23d5d?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="教学大楼" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>教学大楼</h4>
+          <p>数十座功能各别的教学楼馆</p>
+        </div>
+      </div>
+      <!-- Card 4: Playground -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/242dd42a2834349b033b052c14b302ce36d3d539105a?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="运动场" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>运动场</h4>
+          <p>标准化田径运动场与绿茵球场</p>
+        </div>
+      </div>
+      <!-- Card 5: Library -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/a5c27d1ed21b0ef41bd573f5009d46da81cb39db905c?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="校园建筑" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>校园建筑</h4>
+          <p>功能完善的现代化教学设施</p>
+        </div>
+      </div>
+      <!-- Card 6: Campus aerial -->
+      <div class="campus-card fade-in">
+        <img src="https://bkimg.cdn.bcebos.com/pic/38dbb6fd5266d01609244cb94a72c30735fae6cd9f52?x-bce-process=image/resize,m_lfit,w_600,limit_1" alt="校园全景" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div class="overlay">
+          <h4>校园全景</h4>
+          <p>南山之巅，占地170余亩</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <span class="stat-num count-up" data-target="101">0</span>
+        <span class="stat-label">办学历史（年）</span>
+        <div class="stat-bar"></div>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-num count-up" data-target="2727">0</span>
+        <span class="stat-label">在校学生</span>
+        <div class="stat-bar"></div>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-num count-up" data-target="232">0</span>
+        <span class="stat-label">专任教师</span>
+        <div class="stat-bar"></div>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-num count-up" data-target="17">0</span>
+        <span class="stat-label">高考省单科状元</span>
+        <div class="stat-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teachers -->
+<section id="teachers" class="teachers-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">师资力量</div>
+      <h2 class="section-title">名师荟萃，<span class="accent">桃李芬芳</span></h2>
+      <p class="section-desc">230多名专任教师100%本科及以上学历，师资力量雄厚</p>
+    </div>
+    <div class="teacher-stats">
+      <div class="teacher-stat fade-in">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="stat-num count-up" data-target="2">0</span>
+        <span class="label">正高级教师</span>
+      </div>
+      <div class="teacher-stat fade-in">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <span class="stat-num count-up" data-target="71">0</span>
+        <span class="label">高级教师</span>
+      </div>
+      <div class="teacher-stat fade-in">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <span class="stat-num count-up" data-target="55">0</span>
+        <span class="label">硕士学历学位</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
+      <div class="honor-card fade-in">
+        <div class="year">全国荣誉</div>
+        <h4>全国优秀教师 1名</h4>
+        <p>全国优秀科技辅导员 5名</p>
+      </div>
+      <div class="honor-card fade-in">
+        <div class="year">省级荣誉</div>
+        <h4>省学校美育工作专家 1名</h4>
+        <p>省市名教师工作室主持人 9名</p>
+      </div>
+      <div class="honor-card fade-in">
+        <div class="year">市级骨干</div>
+        <h4>江门市高层次人才 73名</h4>
+        <p>鹤山市名校长、名教师、名班主任、学科带头人、骨干教师共计145人次</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Motto -->
+<section class="motto-section">
+  <div class="container">
+    <div class="motto-quote" id="mottoQuote">
+      <span class="char">劳</span><span class="char">心</span><span class="char">劳</span><span class="char">力</span>
+      <span class="char" style="margin:0 16px">，</span>
+      <span class="char">达</span><span class="char">己</span><span class="char">达</span><span class="char">人</span>
+    </div>
+    <div class="motto-divider"></div>
+    <p class="motto-sub">——鹤山市第一中学校训——</p>
+  </div>
+</section>
+
+<!-- Honors -->
+<section id="honors" class="honors-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">荣誉成就</div>
+      <h2 class="section-title">硕果累累，<span class="accent">屡创辉煌</span></h2>
+      <p class="section-desc">被誉为"江门市乃至广东省基础教育的一面旗帜"</p>
+    </div>
+    <div class="honors-grid">
+      <div class="honor-card">
+        <div class="year">1994</div>
+        <h4>首批广东省一级学校</h4>
+        <p>办学水平获省级权威认定</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">1997</div>
+        <h4>广东省先进集体</h4>
+        <p>获省政府授予的崇高荣誉</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">2001</div>
+        <h4>广东省侨资学校办学优秀成果一等奖</h4>
+        <p>华侨办学传统获高度认可</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">2008</div>
+        <h4>国家级示范性普通高中</h4>
+        <p>以高分通过终期督导验收</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">2020</div>
+        <h4>全国青少年校园网球特色学校</h4>
+        <p>教育部认定的体育特色校</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">2021</div>
+        <h4>江门市先进基层党组织</h4>
+        <p>学校党委获市委表彰</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">2023</div>
+        <h4>广东省新课程新教材试验示范校</h4>
+        <p>省校本教研基地，引领教育创新</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">历年</div>
+        <h4>高考成绩连年领先</h4>
+        <p>连续多年高居江门各市区学校榜首，培养出17名高考省单科状元</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">全国</div>
+        <h4>全国模范职工之家</h4>
+        <p>教职工权益保障获全国表彰</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">全国</div>
+        <h4>全国语文教育改革示范校</h4>
+        <p>语文教学改革走在前列</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">省级</div>
+        <h4>广东省绿色学校</h4>
+        <p>生态文明教育成效显著</p>
+      </div>
+      <div class="honor-card">
+        <div class="year">省级</div>
+        <h4>广东省青少年科学教育特色学校</h4>
+        <p>科技创新教育成果丰硕</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Song -->
+<section class="song-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">文化传承</div>
+      <h2 class="section-title">鹤山一中<span class="accent">校歌</span></h2>
+    </div>
+    <div class="song-card fade-in">
+      <div class="song-lyrics">
+        <span class="highlight">南山气象独钟灵</span>，校址肇太平，<br>
+        昆仑西峙大雁东屏。<br>
+        人文蔚起尽峥嵘，吾曹共学第二家庭。<br>
+        切磋砥砺业专精，<br>
+        <span class="highlight">劳心劳力，达己达人</span>，<br>
+        发扬吾校之荣光！
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">联系我们</div>
+      <h2 class="section-title">欢迎来到<span class="accent">鹤山一中</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info fade-in-left">
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h4>学校地址</h4>
+            <p>广东省江门市鹤山市沙坪街道园外苑20号</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <h4>联系电话</h4>
+            <p>0750-8882796</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h4>学校性质</h4>
+            <p>公办完全中学 · 广东省国家级示范性普通高中</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div>
+            <h4>办学特色</h4>
+            <p>"五育"并举，科学严谨管理，自主创新学习，多元优质发展</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-map fade-in-right">
+        <iframe src="https://uri.amap.com/marker?position=112.944,22.768&name=鹤山市第一中学&src=mypage&coordinate=gaode&callnative=0" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>鹤山市第一中学</h3>
+        <p>南山毓秀，百年学府。始建于1925年，广东省国家级示范性普通高中。秉承"劳心劳力，达己达人"校训，为国家培育栋梁之才。</p>
+      </div>
+      <div class="footer-col">
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="#about">学校概况</a></li>
+          <li><a href="#history">百年校史</a></li>
+          <li><a href="#campus">校园风光</a></li>
+          <li><a href="#teachers">师资力量</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>了解更多</h4>
+        <ul>
+          <li><a href="#honors">荣誉成就</a></li>
+          <li><a href="#contact">联系我们</a></li>
+          <li><a href="#">招生信息</a></li>
+          <li><a href="#">校友会</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul>
+          <li>📍 鹤山市沙坪街道园外苑20号</li>
+          <li>📞 0750-8882796</li>
+          <li>🏫 公办完全中学</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 鹤山市第一中学 · 广东省江门市鹤山市 · 信息来源：鹤山市人民政府门户网、百度百科</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+// ========== Loading ==========
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600);
+});
+
+// ========== Particles ==========
+(function() {
+  const c = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const s = document.createElement('span');
+    const size = Math.random() * 80 + 20;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*20}s;animation-duration:${Math.random()*20+15}s`;
+    c.appendChild(s);
+  }
+})();
+
+// ========== Header scroll ==========
+const header = document.getElementById('header');
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 80);
+  backTop.classList.toggle('visible', window.scrollY > 500);
+});
+
+// ========== Count up ==========
+function animateCount(el) {
+  const target = +el.dataset.target;
+  const duration = 2000;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(target * eased);
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(update);
+}
+
+// ========== Scroll animations ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Count up
+      if (e.target.classList.contains('count-up') && !e.target.dataset.animated) {
+        e.target.dataset.animated = '1';
+        animateCount(e.target);
+      }
+    }
+  });
+}, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .timeline-item, .honor-card, .count-up').forEach(el => observer.observe(el));
+
+// ========== Motto chars ==========
+const mottoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const chars = e.target.querySelectorAll('.char');
+      chars.forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), i * 100);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+mottoObserver.observe(document.getElementById('mottoQuote'));
+
+// ========== Smooth scroll for nav ==========
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = a.getAttribute('href');
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
